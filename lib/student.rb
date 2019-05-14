@@ -12,15 +12,6 @@ class Student
     @grade = grade 
   end
   
-def self.save
-    sql = <<-SQL
-      INSERT INTO students (name, grade) 
-      VALUES (?, ?)
-    SQL
-
-    DB[:conn].execute(sql, self.name, self.grade)
-  end
-  
   def self.create_table
     sql = <<-SQL
     CREATE TABLE IF NOT EXISTS students (
@@ -31,6 +22,15 @@ def self.save
     SQL
 
     DB[:conn].execute(sql)
+  end
+    
+  def save
+    sql = <<-SQL
+      INSERT INTO students (name, grade) 
+      VALUES (?, ?)
+    SQL
+
+    DB[:conn].execute(sql, self.name, self.grade)
   end
 
   def self.drop_table
